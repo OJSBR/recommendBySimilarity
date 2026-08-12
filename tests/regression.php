@@ -80,6 +80,21 @@ foreach (['recommend_similarity_cache', 'recommend_similarity_state'] as $table)
     }
 }
 
+// A suite creates and deletes submissions. That is fine on a test installation
+// and unacceptable on a live one, and the only difference between the two, from
+// in here, is how much is published. Anything above this looks like a real
+// journal and the suite refuses to touch it.
+const PRODUCTION_LOOKS_LIKE = 100;
+
+$published = DB::table('submissions')->where('status', Submission::STATUS_PUBLISHED)->count();
+if ($published > PRODUCTION_LOOKS_LIKE && !in_array('--yes-this-is-a-test-installation', $argv, true)) {
+    exit(
+        "REFUSING TO RUN: this installation has {$published} published submissions, which looks\n"
+        . "like a live journal. This suite creates and deletes submissions.\n"
+        . "If it really is a test installation, re-run with --yes-this-is-a-test-installation\n"
+    );
+}
+
 //
 // Tiny framework
 //
