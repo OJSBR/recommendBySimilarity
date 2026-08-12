@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-06-04 19:54+0000\n"
+"Last-Translator: Diego José Macêdo <diegojmacedo@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <http://translate.pkp.sfu.ca/projects/ojs/"
+"generic-recommendBySimilarity/pt_BR/>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.recommendBySimilarity.displayName"
+msgstr "Recomendar artigos semelhantes"
+
+msgid "plugins.generic.recommendBySimilarity.description"
+msgstr ""
+"Este plugin adiciona uma lista de artigos semelhantes à página de resumo do "
+"artigo."
+
+msgid "plugins.generic.recommendBySimilarity.heading"
+msgstr "Artigos Semelhantes"
+
+msgid "plugins.generic.recommendBySimilarity.advancedSearchIntro"
+msgstr "Você também pode {$advancedSearchLink} para este artigo."
+
+msgid "plugins.generic.recommendBySimilarity.advancedSearch"
+msgstr "iniciar uma pesquisa avançada por similaridade"
+
+msgid "plugins.generic.recommendBySimilarity.task.name"
+msgstr "Atualizar artigos semelhantes"
+
+msgid "plugins.generic.recommendBySimilarity.task.result"
+msgstr "{$refreshed} submissão(ões) atualizada(s); {$queued} nova(s) na fila."
+
+msgid "plugins.generic.recommendBySimilarity.settings.description"
+msgstr "Os artigos semelhantes são localizados em segundo plano e lidos de um cache, de modo que a página do artigo nunca executa uma busca enquanto o leitor espera."
+
+msgid "plugins.generic.recommendBySimilarity.settings.status.title"
+msgstr "Cobertura"
+
+msgid "plugins.generic.recommendBySimilarity.settings.status.body"
+msgstr "{$computed} de {$total} submissões inscritas já foram pesquisadas; {$pending} ainda na fila."
+
+msgid "plugins.generic.recommendBySimilarity.settings.display.title"
+msgstr "Exibição"
+
+msgid "plugins.generic.recommendBySimilarity.settings.recommendationCount"
+msgstr "Artigos semelhantes por página"
+
+msgid "plugins.generic.recommendBySimilarity.settings.maxRecommendations"
+msgstr "Máximo de artigos semelhantes armazenados por artigo"
+
+msgid "plugins.generic.recommendBySimilarity.settings.refresh.title"
+msgstr "Atualização"
+
+msgid "plugins.generic.recommendBySimilarity.settings.refresh.hint"
+msgstr "Cada execução da tarefa agendada atualiza uma fatia da revista, começando pelas menos recentes, de modo que as listas nunca expiram todas ao mesmo tempo."
+
+msgid "plugins.generic.recommendBySimilarity.settings.batchSize"
+msgstr "Submissões atualizadas por execução"
+
+msgid "plugins.generic.recommendBySimilarity.settings.maxAgeDays"
+msgstr "Atualizar listas com mais de (dias)"
+
+msgid "plugins.generic.recommendBySimilarity.settings.queueLimit"
+msgstr "Inscrever no máximo esta quantidade de submissões (0 = sem limite)"
+
+msgid "plugins.generic.recommendBySimilarity.settings.htmlCacheHours"
+msgstr "Manter a seção renderizada por (horas)"
+
+msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand"
+msgstr "Buscar os artigos semelhantes que faltarem enquanto o leitor espera"
+
+msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand.hint"
+msgstr "Desligado por padrão. Enquanto estiver desligado, um artigo que ainda não foi pesquisado simplesmente não exibe a seção, e a tarefa agendada a preenche. Só vale ligar em revistas pequenas."
+
+msgid "plugins.generic.recommendBySimilarity.settings.numberRequired"
+msgstr "Informe um número inteiro."
