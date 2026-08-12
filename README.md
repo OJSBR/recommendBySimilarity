@@ -118,10 +118,30 @@ No OJS table is modified. Uninstalling is `DROP`.
 
 ## Tests
 
-Verified against a production journal of 4,823 published articles whose search index holds
-3.4 million rows: results compared against the original plugin item by item on a sample, the
-performance figures above measured on that database, and section, paging, settings form and
-translations checked in the browser on a 3.5 install.
+Three suites, all of them run against OJS 3.5.0.3 before this release
+(details and the list of cases in [tests/CASES.md](tests/CASES.md)):
+
+| Suite | What it covers | Result |
+|---|---|---|
+| [`tests/regression.php`](tests/regression.php) | terms, the co-occurrence query, the store, and publishing through to the reader — against a real database | **34 cases, 34 passed** |
+| [`tests/SimilarityFinderTest.php`](tests/SimilarityFinderTest.php) | the term-extraction contract (PHPUnit, no database) | **passed** |
+| [`cypress/tests/functional/`](cypress/tests/functional) | enabling, the settings screen and the article page, in a browser | **7 tests, 7 passed** |
+
+```bash
+php plugins/generic/recommendBySimilarity/tests/regression.php
+cd lib/pkp/tests && ../lib/vendor/bin/phpunit -c phpunit.xml --testsuite ApplicationPlugins
+npx cypress run --spec 'cypress/tests/**/RecommendBySimilarity.cy.js'
+```
+
+The regression suite creates its own submissions and deletes them again; run it on a test
+installation. The Cypress spec defaults to the PKP test data but runs against any journal
+through `cypress.env.json` — it solves the Altcha proof of work where `captcha_on_login` is on,
+and works whatever language the interface is in.
+
+One case deserves singling out: **B09 runs the core's own `ORDERBY_SEARCH_RANKING` query — the
+slow one — for one article and compares the result with this plugin's.** That is the guarantee
+that replacing two correlated subqueries with a single grouped scan changed the cost and not the
+answer.
 
 ## Credits & authorship
 
@@ -222,10 +242,20 @@ Nenhuma tabela do OJS é alterada. Desinstalar é `DROP`.
 
 ### Testes
 
-Verificado contra a base de uma revista de produção com 4.823 artigos publicados e 3,4 milhões
-de linhas no índice de busca: resultados comparados com o plugin original numa amostra, os
-números de desempenho acima medidos nessa base, e a renderização conferida no navegador numa
-instalação 3.5.
+Três suítes, todas executadas contra o OJS 3.5.0.3 antes desta versão (a lista de casos está em
+[tests/CASES.md](tests/CASES.md)): a de regressão (`tests/regression.php`), que cobre os termos,
+a consulta de co-ocorrência, o armazenamento e o caminho da publicação até o leitor contra um
+banco real — **34 casos, 34 passaram**; a unitária em PHPUnit
+(`tests/SimilarityFinderTest.php`) — **passou**; e a funcional em Cypress, que cobre habilitar o
+plugin, a tela de configurações e a página do artigo no navegador — **7 testes, 7 passaram**.
+
+Um caso merece destaque: **o B09 executa a consulta original do núcleo (a lenta,
+`ORDERBY_SEARCH_RANKING`) para um artigo e compara com o resultado deste plugin.** É a garantia
+de que trocar duas subconsultas correlacionadas por uma varredura agrupada mudou o custo, e não
+a resposta.
+
+A suíte de regressão cria e apaga as próprias submissões: rode em instalação de teste. O Cypress
+usa por padrão a base de testes da PKP, mas roda contra qualquer revista via `cypress.env.json`.
 
 ### Créditos e autoria
 
