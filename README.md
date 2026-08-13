@@ -66,7 +66,8 @@ the remainder is tie-breaking.
    `plugins/generic/recommendBySimilarity`.
    **Do not rename the folder** — OJS derives the plugin's namespace from the directory name.
 2. Enable it in **Settings → Website → Plugins**. Enabling creates its two tables.
-3. Recommended on a large journal: build the cache once, deliberately:
+3. **The section will not appear straight away** — see *After enabling* below. To fill it in
+   one pass instead of waiting:
 
 ```bash
 php plugins/generic/recommendBySimilarity/tools/buildRecommendations.php --pause=150
@@ -76,6 +77,47 @@ Run it as the account that owns the files, never as root. `--help` lists the opt
 
 The plugin relies on the search index OJS already maintains. If that index is stale, rebuild it
 first (`php tools/rebuildSearchIndex.php`), or the lists will be built from whatever is there.
+
+### After enabling: the section does not appear yet
+
+**This is expected, and it is the plugin working as designed.** Enabling creates the tables but
+leaves them empty; no search runs while a reader waits. Until an article has been searched for,
+it simply shows no section.
+
+How long the filling takes depends on how the site runs its scheduled tasks:
+
+| | pace | a journal of 1,000 articles | of 5,000 |
+|---|---|---|---|
+| **With cron** (recommended) | 250 articles every 15 min | about **1 hour** | about **5 hours** |
+| **Without cron** (`[schedule] task_runner`, the default) | up to 250 articles a minute, but only while people are visiting the site | minutes to hours, depending on traffic | idem |
+| **By hand, once** | the whole journal in one pass | seconds to a minute | **196 s** on the journal this was measured on |
+
+If you would rather not wait:
+
+```bash
+php plugins/generic/recommendBySimilarity/tools/buildRecommendations.php --pause=150
+```
+
+This plugin reads the search index OJS already maintains. **If that index is stale or empty, the
+lists follow it** — rebuild it first with `php tools/rebuildSearchIndex.php` if in doubt.
+
+You can watch it fill up in **Settings → Website → Plugins → Recommend Similar Articles →
+Settings**, or with `tools/buildRecommendations.php --status`.
+
+### Tables it creates
+
+Two, both new — **no OJS table is modified**, and there is no index table: the search index OJS
+already maintains is the right index for this question.
+
+| table | what it holds |
+|---|---|
+| `recommend_similarity_cache` | the ordered list of similar submissions for each article |
+| `recommend_similarity_state` | when each article was computed, and the search phrase it came from (used by the "refine this search" link) |
+
+On a journal with 4,823 published articles they take about **42 MB** together, most of it the
+cache — storing 50 similar articles each. Twenty is about 16 MB and still two pages deep. Every
+row is tied to its submission with `ON DELETE CASCADE`, so uninstalling is a matter of dropping
+the two tables.
 
 ## Configuration
 
@@ -207,7 +249,8 @@ original; o restante é desempate.
    Plugins → Enviar novo plugin**, ou copie a pasta para
    `plugins/generic/recommendBySimilarity`. **Não renomeie a pasta.**
 2. Habilite em **Configurações → Website → Plugins**. Ao habilitar, as duas tabelas são criadas.
-3. Em revista grande, monte o cache de uma vez, fora do horário de pico:
+3. **A seção não aparece de imediato** — veja *Depois de habilitar*, abaixo. Para preencher de
+   uma vez, em vez de esperar:
 
 ```bash
 php plugins/generic/recommendBySimilarity/tools/buildRecommendations.php --pause=150
@@ -215,6 +258,48 @@ php plugins/generic/recommendBySimilarity/tools/buildRecommendations.php --pause
 
 Rode como o dono dos arquivos, nunca como root. O plugin usa o índice de busca que o OJS já
 mantém; se ele estiver desatualizado, reconstrua antes (`php tools/rebuildSearchIndex.php`).
+
+### Depois de habilitar: a seção ainda não aparece
+
+**Isso é esperado, e é o plugin funcionando como projetado.** Habilitar cria as tabelas, mas elas
+nascem vazias; nenhuma busca roda com o leitor esperando. Enquanto um artigo não tiver sido
+pesquisado, ele simplesmente não exibe a seção.
+
+Quanto tempo leva para preencher depende de como o site executa as tarefas agendadas:
+
+| | ritmo | revista de 1.000 artigos | de 5.000 |
+|---|---|---|---|
+| **Com cron** (recomendado) | 250 artigos a cada 15 min | cerca de **1 hora** | cerca de **5 horas** |
+| **Sem cron** (`[schedule] task_runner`, o padrão) | até 250 artigos por minuto, mas só enquanto houver visitas ao site | de minutos a horas, conforme o tráfego | idem |
+| **Na mão, uma vez** | a revista inteira de uma vez | de segundos a um minuto | **196 s** na revista onde isto foi medido |
+
+Se preferir não esperar:
+
+```bash
+php plugins/generic/recommendBySimilarity/tools/buildRecommendations.php --pause=150
+```
+
+Este plugin lê o índice de busca que o próprio OJS mantém. **Se esse índice estiver
+desatualizado ou vazio, as listas seguem o que houver nele** — na dúvida, reconstrua antes com
+`php tools/rebuildSearchIndex.php`.
+
+Dá para acompanhar o preenchimento em **Configurações → Website → Plugins → Recomendar artigos
+semelhantes → Configurações**, ou com `tools/buildRecommendations.php --status`.
+
+### Tabelas que ele cria
+
+Duas, ambas novas — **nenhuma tabela do OJS é alterada**, e não há tabela de índice: o índice de
+busca que o OJS já mantém é o índice certo para esta pergunta.
+
+| tabela | o que guarda |
+|---|---|
+| `recommend_similarity_cache` | a lista ordenada de artigos semelhantes para cada artigo |
+| `recommend_similarity_state` | quando cada artigo foi calculado e a frase de busca que originou a lista (usada no link de pesquisa avançada) |
+
+Numa revista com 4.823 artigos publicados, as duas somam cerca de **42 MB**, quase tudo na
+tabela de cache — que guarda 50 semelhantes por artigo. Com 20 ficam uns 16 MB, ainda rendendo
+duas páginas. Cada linha está presa à sua submissão com `ON DELETE CASCADE`, então desinstalar é
+apagar as duas tabelas.
 
 ### Configuração
 
