@@ -11,6 +11,11 @@
  * The element ids are the ones the original plugin used, so themes that style
  * this section keep working. The submissions arrive as a plain array now --
  * they are read from the cache table, not from a collector.
+ *
+ * Ported from the 3.5 branch: 3.3 has no frontend/components/pagination.tpl,
+ * so the two links the plugin already computed are written out here; the
+ * issue comes from the plugin rather than from a collection; and {url} takes
+ * neither a router nor urlLocaleForPage in this release.
  *}
 {if $articlesBySimilarity->submissions}
 	<section id="articlesBySimilarityList">
@@ -20,40 +25,48 @@
 		<ul>
 			{foreach from=$articlesBySimilarity->submissions item=submission}
 				{assign var=publication value=$submission->getCurrentPublication()}
-				{assign var=issue value=$articlesBySimilarity->issues->get($publication->getData('issueId'))}
-
+				{assign var=issue value=$articlesBySimilarity->plugin->getIssue((int) $publication->getData('issueId'))}
 				<li>
 					{foreach from=$publication->getData('authors') item=author}
 						{$author->getFullName()|escape},
 					{/foreach}
-					<a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE journal=$currentContext->getPath() page="article" op="view" path=$submission->getBestId() urlLocaleForPage=""}">
-						{$publication->getLocalizedFullTitle(null, 'html')|strip_unsafe_html}
+					<a href="{url journal=$currentContext->getPath() page="article" op="view" path=$submission->getBestId()}">
+						{$publication->getLocalizedFullTitle()|strip_unsafe_html}
 					</a>
 					{if $issue},
-					<a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE journal=$currentContext->getPath() page="issue" op="view" path=$issue->getBestIssueId() urlLocaleForPage=""}">
+					<a href="{url journal=$currentContext->getPath() page="issue" op="view" path=$issue->getBestIssueId()}">
 						{$currentContext->getLocalizedName()|escape}: {$issue->getIssueIdentification()|escape}
 					</a>
 					{/if}
 				</li>
 			{/foreach}
 		</ul>
-		<p id="articlesBySimilarityPages">
-			{include
-				file="frontend/components/pagination.tpl"
-				prevUrl=$articlesBySimilarity->previousUrl
-				nextUrl=$articlesBySimilarity->nextUrl
-				showingStart=$articlesBySimilarity->start
-				showingEnd=$articlesBySimilarity->end
-				total=$articlesBySimilarity->total
-			}
-		</p>
-		<p id="articlesBySimilaritySearch">
-			{capture assign="articlesBySimilaritySearchLink"}{strip}
-				<a href="{url page="search" op="search" query=$articlesBySimilarity->query}">
-					{translate key="plugins.generic.recommendBySimilarity.advancedSearch"}
-				</a>
-			{/strip}{/capture}
-			{translate key="plugins.generic.recommendBySimilarity.advancedSearchIntro" advancedSearchLink=$articlesBySimilaritySearchLink}
-		</p>
+		{if $articlesBySimilarity->previousUrl || $articlesBySimilarity->nextUrl}
+			<p id="articlesBySimilarityPages">
+				{if $articlesBySimilarity->previousUrl}
+					<a href="{$articlesBySimilarity->previousUrl|escape}#articlesBySimilarity" class="prev">
+						{translate key="plugins.generic.recommendBySimilarity.previous"}
+					</a>
+				{/if}
+				<span class="current">
+					{translate key="plugins.generic.recommendBySimilarity.showing" start=$articlesBySimilarity->start end=$articlesBySimilarity->end total=$articlesBySimilarity->total}
+				</span>
+				{if $articlesBySimilarity->nextUrl}
+					<a href="{$articlesBySimilarity->nextUrl|escape}#articlesBySimilarity" class="next">
+						{translate key="plugins.generic.recommendBySimilarity.next"}
+					</a>
+				{/if}
+			</p>
+		{/if}
+		{if $articlesBySimilarity->query}
+			<p id="articlesBySimilaritySearch">
+				{capture assign="articlesBySimilaritySearchLink"}{strip}
+					<a href="{url page="search" op="search" query=$articlesBySimilarity->query}">
+						{translate key="plugins.generic.recommendBySimilarity.advancedSearch"}
+					</a>
+				{/strip}{/capture}
+				{translate key="plugins.generic.recommendBySimilarity.advancedSearchIntro" advancedSearchLink=$articlesBySimilaritySearchLink}
+			</p>
+		{/if}
 	</section>
 {/if}

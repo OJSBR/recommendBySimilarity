@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-19T11:05:22+00:00\n"
+"PO-Revision-Date: 2019-11-19T11:05:22+00:00\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "plugins.generic.recommendBySimilarity.displayName"
+msgstr "Raccomanda articoli simili"
+
+msgid "plugins.generic.recommendBySimilarity.description"
+msgstr ""
+"Questo plugin aggiunge una lista di articoli simili alla pagina "
+"dell'abstract dell'articolo."
+
+msgid "plugins.generic.recommendBySimilarity.heading"
+msgstr "Articoli simili"
+
+msgid "plugins.generic.recommendBySimilarity.advancedSearchIntro"
+msgstr "Puoi anche {$advancedSearchLink} per questo articolo."
+
+msgid "plugins.generic.recommendBySimilarity.advancedSearch"
+msgstr "Iniziare una ricerca avanzata di similarità"
+
+msgid "plugins.generic.recommendBySimilarity.task.name"
+msgstr "Aggiorna gli articoli simili"
+
+msgid "plugins.generic.recommendBySimilarity.task.result"
+msgstr "{$refreshed} proposta/e aggiornata/e; {$queued} nuova/e in coda."
+
+msgid "plugins.generic.recommendBySimilarity.settings.description"
+msgstr "Gli articoli simili sono cercati in background e letti da una cache, così la pagina dell'articolo non esegue mai una ricerca mentre il lettore aspetta."
+
+msgid "plugins.generic.recommendBySimilarity.settings.status.title"
+msgstr "Copertura"
+
+msgid "plugins.generic.recommendBySimilarity.settings.status.body"
+msgstr "{$computed} di {$total} proposte registrate sono state cercate; {$pending} sono ancora in coda."
+
+msgid "plugins.generic.recommendBySimilarity.settings.display.title"
+msgstr "Visualizzazione"
+
+msgid "plugins.generic.recommendBySimilarity.settings.recommendationCount"
+msgstr "Articoli simili per pagina"
+
+msgid "plugins.generic.recommendBySimilarity.settings.maxRecommendations"
+msgstr "Numero massimo di articoli simili memorizzati per articolo"
+
+msgid "plugins.generic.recommendBySimilarity.settings.refresh.title"
+msgstr "Aggiornamento"
+
+msgid "plugins.generic.recommendBySimilarity.settings.refresh.hint"
+msgstr "Ogni esecuzione dell'attività pianificata aggiorna una parte della rivista, a partire da quelle calcolate da più tempo, così le liste non scadono mai tutte insieme."
+
+msgid "plugins.generic.recommendBySimilarity.settings.batchSize"
+msgstr "Proposte aggiornate per esecuzione"
+
+msgid "plugins.generic.recommendBySimilarity.settings.maxAgeDays"
+msgstr "Aggiorna le liste più vecchie di (giorni)"
+
+msgid "plugins.generic.recommendBySimilarity.settings.queueLimit"
+msgstr "Registra al massimo questo numero di proposte (0 = nessun limite)"
+
+msgid "plugins.generic.recommendBySimilarity.settings.htmlCacheHours"
+msgstr "Conserva la sezione generata per (ore)"
+
+msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand"
+msgstr "Cerca gli articoli simili mancanti mentre il lettore aspetta"
+
+msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand.hint"
+msgstr "Disattivato per impostazione predefinita. Finché è disattivato, un articolo non ancora cercato semplicemente non mostra la sezione, e l'attività pianificata la riempie. Conviene attivarlo solo su riviste piccole."
+
+msgid "plugins.generic.recommendBySimilarity.settings.numberRequired"
+msgstr "Inserisci un numero intero."
+
+msgid "plugins.generic.recommendBySimilarity.previous"
+msgstr "Precedente"
+
+msgid "plugins.generic.recommendBySimilarity.next"
+msgstr "Successivo"
+
+msgid "plugins.generic.recommendBySimilarity.showing"
+msgstr "Risultati {$start}-{$end} di {$total}"

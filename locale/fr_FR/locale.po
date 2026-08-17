@@ -1,11 +1,10 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-03-31 16:08+0000\n"
-"Last-Translator: Marie-Hélène Vézina [UdeMontréal] <marie-helene."
-"vezina@umontreal.ca>\n"
-"Language-Team: French (Canada) <http://translate.pkp.sfu.ca/projects/ojs/"
-"generic-recommendBySimilarity/fr_CA/>\n"
-"Language: fr_CA\n"
+"PO-Revision-Date: 2020-08-21 14:48+0000\n"
+"Last-Translator: Paul Heckler <paul.d.heckler@gmail.com>\n"
+"Language-Team: French <http://translate.pkp.sfu.ca/projects/ojs/generic-"
+"recommendBySimilarity/fr/>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,68 +16,68 @@ msgstr "Articles similaires recommandés"
 
 msgid "plugins.generic.recommendBySimilarity.description"
 msgstr ""
-"Ce plugiciel ajoute une liste d’articles similaires sur la page du résumé de "
+"Ce module ajoute une liste d'articles similaires sur la page de résumé de "
 "l'article."
 
 msgid "plugins.generic.recommendBySimilarity.heading"
 msgstr "Articles similaires"
 
 msgid "plugins.generic.recommendBySimilarity.advancedSearchIntro"
-msgstr "Vous pouvez également {$advancedSearchLink} à cet article."
+msgstr "Vous pouvez également {$advancedSearchLink} pour cet article."
 
 msgid "plugins.generic.recommendBySimilarity.advancedSearch"
-msgstr "Lancer une recherche avancée d’articles similaires"
+msgstr "Lancer une recherche avancée de similarité"
 
 msgid "plugins.generic.recommendBySimilarity.task.name"
-msgstr "Refresh similar articles"
+msgstr "Actualiser les articles similaires"
 
 msgid "plugins.generic.recommendBySimilarity.task.result"
-msgstr "Refreshed {$refreshed} submission(s); {$queued} new one(s) queued."
+msgstr "{$refreshed} soumission(s) actualisée(s) ; {$queued} nouvelle(s) en file d'attente."
 
 msgid "plugins.generic.recommendBySimilarity.settings.description"
-msgstr "Similar articles are found in the background and read from a cache, so that the article page never runs a search while a reader waits."
+msgstr "Les articles similaires sont recherchés en arrière-plan et lus dans un cache, de sorte que la page de l'article n'exécute jamais de recherche pendant que le lecteur attend."
 
 msgid "plugins.generic.recommendBySimilarity.settings.status.title"
-msgstr "Coverage"
+msgstr "Couverture"
 
 msgid "plugins.generic.recommendBySimilarity.settings.status.body"
-msgstr "{$computed} of {$total} enrolled submissions have been searched; {$pending} still queued."
+msgstr "{$computed} des {$total} soumissions enregistrées ont été recherchées ; {$pending} sont encore en file d'attente."
 
 msgid "plugins.generic.recommendBySimilarity.settings.display.title"
-msgstr "Display"
+msgstr "Affichage"
 
 msgid "plugins.generic.recommendBySimilarity.settings.recommendationCount"
-msgstr "Similar articles per page"
+msgstr "Articles similaires par page"
 
 msgid "plugins.generic.recommendBySimilarity.settings.maxRecommendations"
-msgstr "Maximum similar articles stored per article"
+msgstr "Nombre maximal d'articles similaires enregistrés par article"
 
 msgid "plugins.generic.recommendBySimilarity.settings.refresh.title"
-msgstr "Refresh"
+msgstr "Actualisation"
 
 msgid "plugins.generic.recommendBySimilarity.settings.refresh.hint"
-msgstr "Each run of the scheduled task refreshes a slice of the journal, the least recently computed first, so that the lists never all expire at the same moment."
+msgstr "Chaque exécution de la tâche planifiée actualise une partie de la revue, en commençant par les calculs les plus anciens, de sorte que les listes n'expirent jamais toutes en même temps."
 
 msgid "plugins.generic.recommendBySimilarity.settings.batchSize"
-msgstr "Submissions refreshed per run"
+msgstr "Soumissions actualisées par exécution"
 
 msgid "plugins.generic.recommendBySimilarity.settings.maxAgeDays"
-msgstr "Refresh lists older than (days)"
+msgstr "Actualiser les listes datant de plus de (jours)"
 
 msgid "plugins.generic.recommendBySimilarity.settings.queueLimit"
-msgstr "Enrol at most this many submissions (0 = no limit)"
+msgstr "Enregistrer au plus ce nombre de soumissions (0 = sans limite)"
 
 msgid "plugins.generic.recommendBySimilarity.settings.htmlCacheHours"
-msgstr "Keep the rendered section for (hours)"
+msgstr "Conserver la section générée pendant (heures)"
 
 msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand"
-msgstr "Search for missing similar articles while the reader waits"
+msgstr "Rechercher les articles similaires manquants pendant que le lecteur attend"
 
 msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand.hint"
-msgstr "Off by default. While off, an article that has not been searched yet simply shows no section, and the scheduled task fills it in. Turning it on is only advisable on small journals."
+msgstr "Désactivé par défaut. Tant que l'option est désactivée, un article non encore recherché n'affiche tout simplement pas la section, et la tâche planifiée la remplit. Il n'est conseillé de l'activer que sur de petites revues."
 
 msgid "plugins.generic.recommendBySimilarity.settings.numberRequired"
-msgstr "Please enter a whole number."
+msgstr "Veuillez saisir un nombre entier."
 
 msgid "plugins.generic.recommendBySimilarity.previous"
 msgstr "Précédent"

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file plugins/generic/recommendBySimilarity/tools/buildRecommendations.php
+ * @file plugins/generic/recommendBySimilarity/tools/buildRecommendations.php (OJS 3.3)
  *
  * Copyright (c) 2014-2025 Simon Fraser University
  * Copyright (c) 2003-2025 John Willinsky
@@ -18,7 +18,7 @@
  *
  * Usage (run as the account that owns the files, never as root):
  *
- *   php plugins/generic/recommendBySimilarity/tools/buildRecommendations.php
+ *   php plugins/generic/recommendBySimilarity/tools/buildRecommendations.php (OJS 3.3)
  *   ... --context=1        only one journal (default: every journal)
  *   ... --limit=500        stop after this many submissions, for a first test
  *   ... --batch=50         submissions per transaction (default 50)
@@ -28,24 +28,25 @@
  *   ... --status           print coverage and exit
  */
 
-use APP\core\Application;
-use APP\core\PageRouter;
-use PKP\context\Context;
-use PKP\core\PKPRequest;
-use APP\plugins\generic\recommendBySimilarity\classes\SimilarityFinder;
-use APP\plugins\generic\recommendBySimilarity\classes\RecommendationStore;
-use APP\plugins\generic\recommendBySimilarity\RecommendBySimilarityPlugin;
-use Illuminate\Support\Facades\DB;
-use PKP\plugins\PluginRegistry;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 $root = dirname(__DIR__, 4);
 chdir($root);
 define('INDEX_FILE_LOCATION', $root . '/index.php');
-require $root . '/lib/pkp/includes/bootstrap.php';
+require $root . '/lib/pkp/includes/bootstrap.inc.php';
+
+// 3.5 alcanca estas pelo namespace; 3.3 precisa do import explicito.
+import('classes.core.PageRouter');
+
+import('plugins.generic.recommendBySimilarity.classes.RecommendBySimilarityFinder');
+import('plugins.generic.recommendBySimilarity.classes.RecommendBySimilarityStore');
+
+function out($s) { file_put_contents('php://stdout', $s); }
+function out_printf() { $a = func_get_args(); out(call_user_func_array('sprintf', $a)); }
 
 $options = getopt('', ['context::', 'limit::', 'batch::', 'pause::', 'stale-only', 'status', 'help']);
 if (isset($options['help'])) {
-    echo file_get_contents(__FILE__, false, null, 0, 1800), "\n";
+    out(file_get_contents(__FILE__, false, null, 0, 1800), "\n");
     exit(0);
 }
 
@@ -55,14 +56,17 @@ if (isset($options['help'])) {
 // router with a fixed context is what the rest of OJS assumes it has.
 class RecommendBySimilarityCliRouter extends PageRouter
 {
-    private ?Context $context = null;
+    private $context = null;
 
-    public function pinContext(?Context $context): void
+    public function pinContext($context)
     {
         $this->context = $context;
     }
 
-    public function getContext(PKPRequest $request, bool $forceReload = false): ?Context
+    // 3.3 declares this as "function &getContext($request, $level, $forceReload)"
+    // -- by reference, and with the context level the later releases dropped.
+    // A signature that does not match is a fatal error at class load.
+    public function &getContext($request, $requestedContextLevel = 1, $forceReload = false)
     {
         return $this->context;
     }
@@ -72,12 +76,22 @@ $request = Application::get()->getRequest();
 $router = new RecommendBySimilarityCliRouter();
 $router->setApplication(Application::get());
 $contextDao = Application::getContextDAO();
+$allContexts = array();
+$contextsResult = $contextDao->getAll(true);
+while ($c = $contextsResult->next()) {
+    $allContexts[] = $c;
+}
 $router->pinContext(
     isset($options['context'])
         ? $contextDao->getById((int) $options['context'])
-        : $contextDao->getAll(true)->toArray()[0] ?? null
+        : (isset($allContexts[0]) ? $allContexts[0] : null)
 );
 $request->setRouter($router);
+
+// No fluxo web quem faz isto e o Dispatcher; sem isto AppLocale::$request fica
+// nulo e qualquer plugin que leia o locale ao registrar (customLocale, por
+// exemplo) derruba o loadCategory inteiro com "getUserVar() on null".
+AppLocale::initialize($request);
 
 // Every plugin, not only the enabled ones: the cache can legitimately be built
 // before the plugin is switched on, which is the safe order on a busy site.
@@ -89,17 +103,17 @@ if (!$plugin) {
     exit(1);
 }
 if (!$plugin->getEnabled()) {
-    echo "Note: the plugin is not enabled yet; building the cache anyway.\n";
+    out("Note: the plugin is not enabled yet; building the cache anyway.\n");
 }
 
-$store = new RecommendationStore();
-$finder = new SimilarityFinder();
+$store = new RecommendBySimilarityStore();
+$finder = new RecommendBySimilarityFinder();
 
 $status = function () use ($store) {
-    $total = DB::table('recommend_similarity_state')->count();
-    $pending = DB::table('recommend_similarity_state')->whereNull('computed_at')->count();
-    printf("enrolled: %d   computed: %d   queued: %d   cached rows: %d\n",
-        $total, $total - $pending, $pending, DB::table('recommend_similarity_cache')->count());
+    $total = Capsule::table('recommend_similarity_state')->count();
+    $pending = Capsule::table('recommend_similarity_state')->whereNull('computed_at')->count();
+    out_printf("enrolled: %d   computed: %d   queued: %d   cached rows: %d\n",
+        $total, $total - $pending, $pending, Capsule::table('recommend_similarity_cache')->count());
 };
 
 if (isset($options['status'])) {
@@ -113,9 +127,9 @@ $batchSize = max(1, (int) ($options['batch'] ?? 25));
 $pause = max(0, (int) ($options['pause'] ?? 0)) * 1000;
 $staleOnly = isset($options['stale-only']);
 
-echo "Enrolling published submissions...\n";
+out("Enrolling published submissions...\n");
 $contextIds = $plugin->enabledContextIds()
-    ?: array_map(fn ($c) => (int) $c->getId(), $contextDao->getAll(true)->toArray());
+    ?: array_map(function ($c) { return (int) $c->getId(); }, $allContexts);
 if (isset($options['context'])) {
     $contextIds = array_intersect($contextIds, [(int) $options['context']]) ?: [(int) $options['context']];
 }
@@ -123,10 +137,10 @@ $enrolled = 0;
 while ($added = $store->enqueueNew($contextIds, 5000, (int) $plugin->getPluginSetting('queueLimit'))) {
     $enrolled += $added;
 }
-echo "  {$enrolled} newly enrolled.\n";
+out("  {$enrolled} newly enrolled.\n");
 
 
-$query = DB::table('recommend_similarity_state');
+$query = Capsule::table('recommend_similarity_state');
 if ($contextId) {
     $query->where('context_id', $contextId);
 }
@@ -149,17 +163,17 @@ $max = (int) $plugin->getPluginSetting('maxRecommendations');
 $done = 0;
 $started = microtime(true);
 foreach ($byContext as $context => $submissionIds) {
-    printf("Journal %d: %d submission(s)\n", $context, count($submissionIds));
+    out_printf("Journal %d: %d submission(s)\n", $context, count($submissionIds));
     foreach (array_chunk($submissionIds, $batchSize) as $chunk) {
         $store->refresh($chunk, $context, $finder, $max);
         $done += count($chunk);
-        printf("\r  %d/%d (%.1f/s)   ", $done, count($targets), $done / max(0.001, microtime(true) - $started));
+        out_printf("\r  %d/%d (%.1f/s)   ", $done, count($targets), $done / max(0.001, microtime(true) - $started));
         if ($pause) {
             usleep($pause);
         }
     }
-    echo "\n";
+    out("\n");
 }
 
-printf("Done: %d submission(s) in %.1f s.\n", $done, microtime(true) - $started);
+out_printf("Done: %d submission(s) in %.1f s.\n", $done, microtime(true) - $started);
 $status();
