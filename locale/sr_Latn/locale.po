@@ -1,80 +1,97 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-11-30 11:43+0000\n"
-"Last-Translator: rl <biuro@fimagis.pl>\n"
-"Language-Team: Polish <http://translate.pkp.sfu.ca/projects/ojs/generic-"
-"recommendBySimilarity/pl_PL/>\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.9.1\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: sr_Latn\n"
 
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.displayName"
-msgstr "Polecane podobne artykuły"
+msgstr "Preporuka sličnih članaka"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.description"
-msgstr "Ta wtyczka dodaje listę podobnych artykułów do strony abstraktu."
+msgstr "Ovaj dodatak na stranicu apstrakta članka dodaje listu sličnih članaka."
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.heading"
-msgstr "Podobne artykuły"
+msgstr "Slični članci"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.advancedSearchIntro"
-msgstr "Możesz również {$advancedSearchLink} dla tego artykułu."
+msgstr "Možete i {$advancedSearchLink} za ovaj članak."
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.advancedSearch"
-msgstr "Rozpocznij zaawansowane wyszukiwanie podobieństw"
+msgstr "pokrenuti naprednu pretragu sličnosti"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.task.name"
-msgstr "Refresh similar articles"
+msgstr "Osveži slične članke"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.task.result"
 msgstr "Refreshed {$refreshed} submission(s); {$queued} new one(s) queued."
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.description"
-msgstr "Similar articles are found in the background and read from a cache, so that the article page never runs a search while a reader waits."
+msgstr "Slični članci se pronalaze u pozadini i čitaju iz keša, tako da stranica članka nikada ne pokreće pretragu dok čitalac čeka."
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.status.title"
 msgstr "Coverage"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.status.body"
-msgstr "{$computed} of {$total} enrolled submissions have been searched; {$pending} still queued."
+msgstr "Pretraženo je {$computed} od {$total} prijavljenih priloga; {$pending} je još u redu čekanja."
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.display.title"
-msgstr "Display"
+msgstr "Prikaz"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.recommendationCount"
-msgstr "Similar articles per page"
+msgstr "Sličnih članaka po stranici"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.maxRecommendations"
-msgstr "Maximum similar articles stored per article"
+msgstr "Najviše sačuvanih sličnih članaka po članku"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.refresh.title"
 msgstr "Refresh"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.refresh.hint"
-msgstr "Each run of the scheduled task refreshes a slice of the journal, the least recently computed first, so that the lists never all expire at the same moment."
+msgstr "Svako pokretanje zakazanog zadatka osvežava deo časopisa, prvo one najduže neosvežene, tako da liste nikada ne isteknu sve u istom trenutku."
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.batchSize"
 msgstr "Submissions refreshed per run"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.maxAgeDays"
-msgstr "Refresh lists older than (days)"
+msgstr "Osveži liste starije od (dana)"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.queueLimit"
 msgstr "Enrol at most this many submissions (0 = no limit)"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.htmlCacheHours"
 msgstr "Keep the rendered section for (hours)"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand"
-msgstr "Search for missing similar articles while the reader waits"
+msgstr "Traži nedostajuće slične članke dok čitalac čeka"
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand.hint"
-msgstr "Off by default. While off, an article that has not been searched yet simply shows no section, and the scheduled task fills it in. Turning it on is only advisable on small journals."
+msgstr "Podrazumevano isključeno. Dok je isključeno, članak koji još nije pretražen jednostavno ne prikazuje odeljak, a zakazani zadatak ga popunjava. Uključivanje se preporučuje samo kod malih časopisa."
 
+#, fuzzy
 msgid "plugins.generic.recommendBySimilarity.settings.numberRequired"
 msgstr "Please enter a whole number."

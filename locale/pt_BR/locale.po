@@ -11,13 +11,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 3.9.1\n"
 
+
 msgid "plugins.generic.recommendBySimilarity.displayName"
 msgstr "Recomendar artigos semelhantes"
 
 msgid "plugins.generic.recommendBySimilarity.description"
-msgstr ""
-"Este plugin adiciona uma lista de artigos semelhantes à página de resumo do "
-"artigo."
+msgstr "Este plugin adiciona uma lista de artigos semelhantes à página de resumo do artigo."
 
 msgid "plugins.generic.recommendBySimilarity.heading"
 msgstr "Artigos Semelhantes"

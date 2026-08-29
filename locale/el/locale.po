@@ -1,0 +1,97 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: el\n"
+
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.displayName"
+msgstr "Προτάσεις παρόμοιων άρθρων"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.description"
+msgstr "Αυτό το πρόσθετο προσθέτει στη σελίδα περίληψης του άρθρου μια λίστα παρόμοιων άρθρων."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.heading"
+msgstr "Παρόμοια άρθρα"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.advancedSearchIntro"
+msgstr "Μπορείτε επίσης να {$advancedSearchLink} για αυτό το άρθρο."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.advancedSearch"
+msgstr "ξεκινήσετε σύνθετη αναζήτηση ομοιότητας"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.task.name"
+msgstr "Ανανέωση παρόμοιων άρθρων"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.task.result"
+msgstr "Ανανεώθηκαν {$refreshed} υποβολές· {$queued} νέες μπήκαν στην ουρά."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.description"
+msgstr "Τα παρόμοια άρθρα εντοπίζονται στο παρασκήνιο και διαβάζονται από την προσωρινή μνήμη, ώστε η σελίδα του άρθρου να μην εκτελεί ποτέ αναζήτηση ενώ περιμένει ο αναγνώστης."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.status.title"
+msgstr "Κάλυψη"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.status.body"
+msgstr "Αναζητήθηκαν {$computed} από {$total} εγγεγραμμένες υποβολές· {$pending} παραμένουν στην ουρά."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.display.title"
+msgstr "Εμφάνιση"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.recommendationCount"
+msgstr "Παρόμοια άρθρα ανά σελίδα"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.maxRecommendations"
+msgstr "Μέγιστα αποθηκευμένα παρόμοια άρθρα ανά άρθρο"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.refresh.title"
+msgstr "Ανανέωση"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.refresh.hint"
+msgstr "Κάθε εκτέλεση της προγραμματισμένης εργασίας ανανεώνει ένα τμήμα του περιοδικού, ξεκινώντας από όσα υπολογίστηκαν παλαιότερα, ώστε να μη λήγουν ποτέ όλες οι λίστες ταυτόχρονα."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.batchSize"
+msgstr "Υποβολές που ανανεώνονται ανά εκτέλεση"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.maxAgeDays"
+msgstr "Ανανέωση λιστών παλαιότερων από (ημέρες)"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.queueLimit"
+msgstr "Εγγραφή το πολύ τόσων υποβολών (0 = χωρίς όριο)"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.htmlCacheHours"
+msgstr "Διατήρηση της παραχθείσας ενότητας για (ώρες)"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand"
+msgstr "Αναζήτηση των παρόμοιων άρθρων που λείπουν ενώ περιμένει ο αναγνώστης"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand.hint"
+msgstr "Απενεργοποιημένο από προεπιλογή. Όσο είναι ανενεργό, ένα άρθρο που δεν έχει ακόμη αναζητηθεί απλώς δεν εμφανίζει την ενότητα, και τη συμπληρώνει η προγραμματισμένη εργασία. Η ενεργοποίηση συνιστάται μόνο σε μικρά περιοδικά."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.numberRequired"
+msgstr "Εισαγάγετε ακέραιο αριθμό."

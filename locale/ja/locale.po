@@ -1,0 +1,97 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: OJSBR\n"
+"Language-Team: OJSBR\n"
+"Language: ja\n"
+
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.displayName"
+msgstr "類似論文をおすすめ表示"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.description"
+msgstr "このプラグインは、論文の抄録ページに類似論文の一覧を追加します。"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.heading"
+msgstr "類似論文"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.advancedSearchIntro"
+msgstr "この論文について {$advancedSearchLink} こともできます。"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.advancedSearch"
+msgstr "高度な類似検索を実行する"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.task.name"
+msgstr "類似論文を更新"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.task.result"
+msgstr "{$refreshed} 件の投稿を更新し、{$queued} 件を新たにキューに追加しました。"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.description"
+msgstr "類似論文はバックグラウンドで検索してキャッシュから読み出すため、読者を待たせながら論文ページで検索することはありません。"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.status.title"
+msgstr "カバレッジ"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.status.body"
+msgstr "登録済み投稿 {$total} 件のうち {$computed} 件を検索済みで、{$pending} 件がキューに残っています。"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.display.title"
+msgstr "表示"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.recommendationCount"
+msgstr "1 ページあたりの類似論文数"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.maxRecommendations"
+msgstr "論文ごとに保存する類似論文の最大件数"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.refresh.title"
+msgstr "更新"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.refresh.hint"
+msgstr "定期タスクは実行のたびにジャーナルの一部を更新します。計算が最も古いものから順に処理するため、すべての一覧が同時に期限切れになることはありません。"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.batchSize"
+msgstr "1 回の実行で更新する投稿数"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.maxAgeDays"
+msgstr "この日数より古い一覧を更新（日）"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.queueLimit"
+msgstr "登録する投稿の上限（0 = 無制限）"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.htmlCacheHours"
+msgstr "生成した節を保持する時間（時間）"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand"
+msgstr "読者を待たせて、未検索の類似論文をその場で探す"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.computeOnDemand.hint"
+msgstr "既定では無効です。無効のあいだ、まだ検索されていない論文では節が表示されず、定期タスクが後から埋めます。有効にするのは小規模なジャーナルの場合に限って勧められます。"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.settings.numberRequired"
+msgstr "整数を入力してください。"

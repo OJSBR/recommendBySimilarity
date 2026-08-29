@@ -57,3 +57,23 @@ msgstr "Off by default. While off, an article that has not been searched yet sim
 
 msgid "plugins.generic.recommendBySimilarity.settings.numberRequired"
 msgstr "Please enter a whole number."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.displayName"
+msgstr "Pódobne nastawki doporucyś"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.description"
+msgstr "Toś ten tykac pśidajo lisćinu pódobnych nastawkow na bok z abstraktom nastawka."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.heading"
+msgstr "Pódobne nastawki"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.advancedSearchIntro"
+msgstr "Móžośo teke {$advancedSearchLink} za toś ten nastawk."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.advancedSearch"
+msgstr "rozšyrjone pytanje pó pódobnosći startowaś"

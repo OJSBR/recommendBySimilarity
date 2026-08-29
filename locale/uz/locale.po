@@ -3,6 +3,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: uz\n"
 "X-Generator: Weblate\n"
 
 msgid "plugins.generic.recommendBySimilarity.displayName"
@@ -70,3 +71,23 @@ msgstr "Off by default. While off, an article that has not been searched yet sim
 
 msgid "plugins.generic.recommendBySimilarity.settings.numberRequired"
 msgstr "Please enter a whole number."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.displayName"
+msgstr "Oʻxshash maqolalarni tavsiya qilish"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.description"
+msgstr "Bu plagin maqola annotatsiyasi sahifasiga oʻxshash maqolalar roʻyxatini qoʻshadi."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.heading"
+msgstr "Oʻxshash maqolalar"
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.advancedSearchIntro"
+msgstr "Shuningdek, ushbu maqola uchun {$advancedSearchLink} mumkin."
+
+#, fuzzy
+msgid "plugins.generic.recommendBySimilarity.advancedSearch"
+msgstr "kengaytirilgan oʻxshashlik qidiruvini boshlash"
