@@ -1,10 +1,10 @@
 # Recommend Similar Articles — OJS plugin
 
 [![OJS](https://img.shields.io/badge/OJS-3.5-brightgreen)](https://pkp.sfu.ca/ojs/)
-[![Version](https://img.shields.io/badge/version-2.0.0.2-blue)](version.xml)
+[![Version](https://img.shields.io/badge/version-2.0.0.3-blue)](version.xml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
 
-**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/recommendBySimilarity/releases/download/2.0.0.2/recommendBySimilarity-2.0.0.2.tar.gz) · [OJS 3.3](https://github.com/OJSBR/recommendBySimilarity/releases/download/2.0.0.1-ojs3.3/recommendBySimilarity-2.0.0.1-ojs3.3.tar.gz) — or browse all [Releases](../../releases).
+**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/recommendBySimilarity/releases/download/2.0.0.3/recommendBySimilarity-2.0.0.3.tar.gz) · [OJS 3.3](https://github.com/OJSBR/recommendBySimilarity/releases/download/2.0.0.1-ojs3.3/recommendBySimilarity-2.0.0.1-ojs3.3.tar.gz) — or browse all [Releases](../../releases).
 
 The **"Similar Articles"** section on the article page — the same feature journals already
 know, rebuilt so that it is **read from a cache instead of searched for while a reader waits**.
@@ -19,7 +19,7 @@ know, rebuilt so that it is **read from a cache instead of searched for while a 
 
 | OJS version | Branch | Plugin release |
 |-------------|--------|----------------|
-| OJS 3.5.x   | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 2.0.0.2 |
+| OJS 3.5.x   | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 2.0.0.3 |
 | OJS 3.3.x   | [`stable-3_3_0`](../../tree/stable-3_3_0) | 2.0.0.1-ojs3.3 |
 
 ## The problem
@@ -162,23 +162,23 @@ No OJS table is modified. Uninstalling is `DROP`.
 ## Tests
 
 Three suites, all of them run against OJS 3.5.0.3 before this release
-(details and the list of cases in [tests/CASES.md](tests/CASES.md)):
+(details and the list of cases in tests/):
 
 | Suite | What it covers | Result |
 |---|---|---|
-| [`tests/regression.php`](tests/regression.php) | terms, the co-occurrence query, the store, and publishing through to the reader — against a real database | **34 cases, 34 passed** |
+| [`tests/RecommendBySimilarityTest.php`](tests/RecommendBySimilarityTest.php) | terms, the co-occurrence query, the store, and publishing through to the reader — against a real database | **34 cases, 34 passed** |
 | [`tests/SimilarityFinderTest.php`](tests/SimilarityFinderTest.php) | the term-extraction contract (PHPUnit, no database) | **passed** |
 | [`cypress/tests/functional/`](cypress/tests/functional) | enabling, the settings screen and the article page, in a browser | **7 tests, 7 passed** |
 
 ```bash
-php plugins/generic/recommendBySimilarity/tests/regression.php
+php lib/pkp/lib/vendor/bin/phpunit --configuration lib/pkp/tests/phpunit.xml plugins/generic/recommendBySimilarity/tests
 cd lib/pkp/tests && ../lib/vendor/bin/phpunit -c phpunit.xml --testsuite ApplicationPlugins
 npx cypress run --spec 'cypress/tests/**/RecommendBySimilarity.cy.js'
 ```
 
 The regression suite creates its own submissions and deletes them again; run it on a test
 installation. The Cypress spec defaults to the PKP test data but runs against any journal
-through `cypress.env.json` — it solves the Altcha proof of work where `captcha_on_login` is on,
+through `cypress.env.json` — where `captcha_on_login` is on, turn it off for the run — no captcha is ever solved by the spec —
 and works whatever language the interface is in.
 
 One case deserves singling out: **B09 runs the core's own `ORDERBY_SEARCH_RANKING` query — the
@@ -221,7 +221,7 @@ espera**.
 
 | Versão do OJS | Branch | Versão do plugin |
 |---------------|--------|------------------|
-| OJS 3.5.x     | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 2.0.0.2 |
+| OJS 3.5.x     | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 2.0.0.3 |
 | OJS 3.3.x     | [`stable-3_3_0`](../../tree/stable-3_3_0) | 2.0.0.1-ojs3.3 |
 
 ### O que faz
@@ -330,7 +330,7 @@ Nenhuma tabela do OJS é alterada. Desinstalar é `DROP`.
 ### Testes
 
 Três suítes, todas executadas contra o OJS 3.5.0.3 antes desta versão (a lista de casos está em
-[tests/CASES.md](tests/CASES.md)): a de regressão (`tests/regression.php`), que cobre os termos,
+tests/): a de regressão (`tests/RecommendBySimilarityTest.php`), que cobre os termos,
 a consulta de co-ocorrência, o armazenamento e o caminho da publicação até o leitor contra um
 banco real — **34 casos, 34 passaram**; a unitária em PHPUnit
 (`tests/SimilarityFinderTest.php`) — **passou**; e a funcional em Cypress, que cobre habilitar o
