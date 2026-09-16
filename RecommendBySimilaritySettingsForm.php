@@ -18,6 +18,7 @@ namespace APP\plugins\generic\recommendBySimilarity;
 
 use APP\template\TemplateManager;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use PKP\form\Form;
 use PKP\form\validation\FormValidatorCSRF;
 use PKP\form\validation\FormValidatorCustom;
@@ -117,6 +118,12 @@ class RecommendBySimilaritySettingsForm extends Form
      */
     private function queueStatus(): array
     {
+        // The table is created when the plugin is enabled: before that, and while
+        // an installation is being upgraded, the screen still has to open.
+        if (!Schema::hasTable('recommend_similarity_state')) {
+            return ['total' => 0, 'computed' => 0, 'pending' => 0];
+        }
+
         $total = DB::table('recommend_similarity_state')->count();
         $pending = DB::table('recommend_similarity_state')->whereNull('computed_at')->count();
 
