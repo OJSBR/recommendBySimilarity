@@ -157,9 +157,8 @@ class RecommendBySimilarityPlugin extends GenericPlugin implements HasTaskSchedu
             ->pluck('context_id');
 
         if ($enabled->contains(null)) {
-            return Application::getContextDAO()->getAll(true)
-                ->map(fn ($context) => (int) $context->getId())
-                ->toArray();
+            // getAll() hands back a DAOResultFactory, which has toArray() but no map().
+            return array_map(fn ($context) => (int) $context->getId(), Application::getContextDAO()->getAll(true)->toArray());
         }
 
         return $enabled->map(fn ($id) => (int) $id)->all();
