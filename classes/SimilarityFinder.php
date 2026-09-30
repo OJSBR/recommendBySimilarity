@@ -39,6 +39,15 @@ class SimilarityFinder
     public const MAX_SEARCH_KEYWORDS = 20;
 
     /**
+     * How many terms the link to the core search carries. The core ANDs every
+     * word of a query, and a query whose words arrive glued together (crawlers
+     * that turn %20 into %2B) becomes one exact phrase with two tables per word:
+     * with all the keywords of an article in three languages, 40-odd tables that
+     * MariaDB spent hours planning. A few terms joined by OR stay cheap either way.
+     */
+    public const MAX_LINK_TERMS = 5;
+
+    /**
      * The search phrase of a submission: its keywords, in every locale they
      * were entered in. Empty when the article has no keywords at all, which is
      * when the original plugin shows nothing.
@@ -65,6 +74,17 @@ class SimilarityFinder
             0,
             self::MAX_SEARCH_KEYWORDS
         );
+    }
+
+    /**
+     * The query of the link to the core search: the first terms, joined by the
+     * OR operator of the language the page is in.
+     *
+     * @param string[] $terms as returned by terms()
+     */
+    public static function linkQuery(array $terms, string $orOperator): string
+    {
+        return implode(' ' . $orOperator . ' ', array_slice($terms, 0, self::MAX_LINK_TERMS));
     }
 
     /**

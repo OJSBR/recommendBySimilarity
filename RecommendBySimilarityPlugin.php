@@ -252,9 +252,14 @@ class RecommendBySimilarityPlugin extends GenericPlugin implements HasTaskSchedu
         $rangeInfo = Handler::getRangeInfo($request, 'articlesBySimilarity');
         $page = $rangeInfo && $rangeInfo->isValid() ? $rangeInfo->getPage() : 1;
 
+        // The plugin version is in the key: an update that changes the section
+        // (as 2.0.0.5 did with the search link) shows at once, not when the
+        // cached copies expire.
+        $version = $this->getCurrentVersion();
         $key = implode(':', [
             'recommendBySimilarity', 'html', $submissionId, $state->version,
             $this->getPluginSetting('cacheStamp'), Locale::getLocale(), $page,
+            $version ? $version->getVersionString() : '0',
         ]);
         $output .= Cache::remember(
             $key,
@@ -329,7 +334,7 @@ class RecommendBySimilarityPlugin extends GenericPlugin implements HasTaskSchedu
         $templateManager->assign('articlesBySimilarity', (object) [
             'submissions' => $ordered,
             'issues' => $issues,
-            'query' => (string) ($state->search_phrase ?? ''),
+            'query' => SimilarityFinder::linkQuery((new SimilarityFinder())->terms((string) ($state->search_phrase ?? '')), __('search.operator.or')),
             'start' => $offset + 1,
             'end' => $offset + count($ordered),
             'total' => $total,

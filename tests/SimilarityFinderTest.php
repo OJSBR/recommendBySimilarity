@@ -70,6 +70,25 @@ class SimilarityFinderTest extends PKPTestCase
         );
     }
 
+    public function testTheSearchLinkCarriesAFewTermsJoinedByOr(): void
+    {
+        $terms = $this->finder->terms('corporate accounting business opening redesim formalization contabilidad empresarial apertura empresas');
+        $this->assertGreaterThan(SimilarityFinder::MAX_LINK_TERMS, count($terms), 'the fixture must have more terms than the link keeps');
+
+        $query = SimilarityFinder::linkQuery($terms, 'OR');
+        $this->assertSame(implode(' OR ', array_slice($terms, 0, SimilarityFinder::MAX_LINK_TERMS)), $query);
+        $this->assertSame('', SimilarityFinder::linkQuery([], 'OR'));
+    }
+
+    public function testAGluedLinkStillMakesAShortPhrase(): void
+    {
+        // What crawlers send back: the spaces of the link turned into "+".
+        $phrase = implode(' ', array_map(fn ($i) => 'termo' . $i, range(1, 40)));
+        $glued = str_replace(' ', '+', SimilarityFinder::linkQuery($this->finder->terms($phrase), 'OR'));
+        $words = \APP\core\Application::getSubmissionSearchIndex()->filterKeywords($glued, true);
+        $this->assertLessThanOrEqual(2 * SimilarityFinder::MAX_LINK_TERMS, count($words));
+    }
+
     public function testNoTermsMeansNoQueryAndNoResults(): void
     {
         // Guards the early return: with no terms the finder must not reach the

@@ -1,10 +1,10 @@
 # Recommend Similar Articles — OJS plugin
 
 [![OJS](https://img.shields.io/badge/OJS-3.5-brightgreen)](https://pkp.sfu.ca/ojs/)
-[![Version](https://img.shields.io/badge/version-2.0.0.4-blue)](version.xml)
+[![Version](https://img.shields.io/badge/version-2.0.0.5-blue)](version.xml)
 [![License](https://img.shields.io/badge/license-GPL--3.0-lightgrey)](LICENSE)
 
-**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/recommendBySimilarity/releases/download/2.0.0.4/recommendBySimilarity-2.0.0.4.tar.gz) · [OJS 3.3](https://github.com/OJSBR/recommendBySimilarity/releases/download/2.0.0.1-ojs3.3/recommendBySimilarity-2.0.0.1-ojs3.3.tar.gz) — or browse all [Releases](../../releases).
+**⬇️ Install package:** [OJS 3.5](https://github.com/OJSBR/recommendBySimilarity/releases/download/2.0.0.5/recommendBySimilarity-2.0.0.5.tar.gz) · [OJS 3.3](https://github.com/OJSBR/recommendBySimilarity/releases/download/2.0.0.1-ojs3.3/recommendBySimilarity-2.0.0.1-ojs3.3.tar.gz) — or browse all [Releases](../../releases).
 
 The **"Similar Articles"** section on the article page — the same feature journals already
 know, rebuilt so that it is **read from a cache instead of searched for while a reader waits**.
@@ -19,7 +19,7 @@ know, rebuilt so that it is **read from a cache instead of searched for while a 
 
 | OJS version | Branch | Plugin release |
 |-------------|--------|----------------|
-| OJS 3.5.x   | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 2.0.0.4 |
+| OJS 3.5.x   | [`stable-3_5_0`](../../tree/stable-3_5_0) *(default)* | 2.0.0.5 |
 | OJS 3.3.x   | [`stable-3_3_0`](../../tree/stable-3_3_0) | 2.0.0.1-ojs3.3 |
 
 ## The problem
@@ -146,7 +146,7 @@ Two layers, and no index table — **the search index OJS already maintains is e
 index for this question**; what was missing was somewhere to write the answer down.
 
 1. **Rendered HTML** in the Laravel cache, keyed by submission, state version, settings stamp,
-   locale and page.
+   locale, page and plugin version (so an update shows at once).
 2. **`recommend_similarity_cache`** — the ordered list of similar submission ids.
    `recommend_similarity_state` records when each was computed and the search phrase it came
    from (which is what the "refine this search" link uses).
@@ -156,6 +156,12 @@ recently computed. Nothing expires at the same moment, so a refresh is never a s
 Publishing, unpublishing or deleting an article queues that article; its neighbours are picked
 up by the rolling refresh, since naming everything that shares a term would be expensive and
 one new article rarely reorders anybody's top ten.
+
+**The "advanced similarity search" link** carries the first 5 terms joined by OR, with
+`rel="nofollow"` — not the whole phrase. The core search ANDs every word, and crawlers that
+turn `%20` into `%2B` glue the words into one exact phrase with two tables per word: the whole
+phrase of an article in three languages made 40-odd tables that MariaDB spent hours planning
+(seen on a production server in September 2026). Five terms stay cheap either way.
 
 No OJS table is modified. Uninstalling is `DROP`.
 
@@ -221,7 +227,7 @@ espera**.
 
 | Versão do OJS | Branch | Versão do plugin |
 |---------------|--------|------------------|
-| OJS 3.5.x     | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 2.0.0.4 |
+| OJS 3.5.x     | [`stable-3_5_0`](../../tree/stable-3_5_0) *(padrão)* | 2.0.0.5 |
 | OJS 3.3.x     | [`stable-3_3_0`](../../tree/stable-3_3_0) | 2.0.0.1-ojs3.3 |
 
 ### O que faz
@@ -319,7 +325,14 @@ Duas camadas e **nenhuma tabela de índice** — o índice de busca que o OJS j�
 exatamente o índice certo para esta pergunta; o que faltava era onde escrever a resposta. O
 HTML renderizado fica no cache do Laravel; a tabela `recommend_similarity_cache` guarda a lista
 pronta, e `recommend_similarity_state` registra quando foi calculada e a frase de busca que a
-originou (usada no link de pesquisa avançada).
+originou. A chave do HTML inclui a versão do plugin, para uma atualização aparecer na hora.
+
+**O link de "pesquisa avançada por similaridade"** leva os 5 primeiros termos unidos por OR,
+com `rel="nofollow"`, e não a frase inteira. A busca do núcleo exige todas as palavras, e
+robôs que trocam `%20` por `%2B` colam as palavras numa frase exata com duas tabelas por
+palavra: a frase inteira de um artigo em três idiomas gerava 40 e tantas tabelas, que o MariaDB
+passava horas planejando (visto num servidor de produção em setembro de 2026). Com 5 termos a
+busca fica barata nos dois casos.
 
 A tarefa agendada roda a cada 15 minutos e atualiza **uma fatia**, começando pelos nunca
 calculados. Nada expira ao mesmo tempo. Publicar, despublicar ou excluir um artigo recoloca

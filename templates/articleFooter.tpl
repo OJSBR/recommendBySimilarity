@@ -49,7 +49,7 @@
 		</p>
 		<p id="articlesBySimilaritySearch">
 			{capture assign="articlesBySimilaritySearchLink"}{strip}
-				<a href="{url page="search" op="search" query=$articlesBySimilarity->query}">
+				<a href="{url page="search" op="search" query=$articlesBySimilarity->query}" rel="nofollow">
 					{translate key="plugins.generic.recommendBySimilarity.advancedSearch"}
 				</a>
 			{/strip}{/capture}
